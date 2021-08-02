@@ -1,5 +1,5 @@
 //
-// Ondas en canvas
+// Canvas
 //
 
 /*
@@ -21,36 +21,53 @@ Iterar: Repetir el proceso, cambiando más variables, agregando color, agregando
 
 */
 
-const canvas = document.getElementById('canvas');
-const ctx = canvas.getContext('2d');
+let canvas = document.getElementById('canvas');
+let ctx = canvas.getContext('2d');
 
-let x = 80;
-let y = 80 ;
-let vx= 25;
-let vy = 15;
-let r = 12;
+// Animation position circle
 
-function draw() {
-
-    ctx.clearRect(0,0, canvas.width, canvas.height);
-    if (x > canvas.width - r || x < r) {
-    vx =- vx;
-    }
-    if (y > canvas.height - r || y < r) {
-    vy =- vy;
-    }
-
-    x += vx;
-    y += vy;
-
-    ctx.arc(x,y,r,0,2*Math.PI);
-    ctx.fillStyle="Pink";
-    ctx.fill();
-    ctx.closePath(); 
-
-
-    window.requestAnimationFrame(draw);
+class circle {
+  constructor(x, y, vx, vy, r) {
+      this.x = x;
+      this.y = y;
+      this.vx = vx;
+      this.vy = vy;
+      this.r = r;
+  }
 }
 
-requestAnimationFrame(draw);
+const circleInstance = new circle(80, 110, 20, 10, 12);
 
+x = 80;
+y = 110;
+vx = 20;
+vy = 10;
+r = 12;
+
+function animationShapes() {
+  ctx.clearRect(0,0, canvas.width, canvas.height);
+  if (x > canvas.width - r || x < r) {
+    vx =- vx;
+  }
+  if (y > canvas.height - r || y < r) {
+    vy =- vy;
+  }
+
+  x += vx;
+  y += vy;
+
+  // Circle
+
+  //ctx.beginPath(); // Dibuja una linea en el canvas
+  ctx.arc(x,y,r,0,2*Math.PI);
+  ctx.fillStyle="Pink";
+  ctx.fill();
+  ctx.closePath(); // Cerrar figura
+
+
+
+  window.requestAnimationFrame(animationShapes);
+
+}
+
+animationShapes();
